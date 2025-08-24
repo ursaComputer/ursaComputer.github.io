@@ -221,7 +221,7 @@ const CoinFlipApp: React.FC = () => {
           {isFlipping && (
             <div className="text-center py-8">
               <div className="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-white mb-4"></div>
-              <p className="text-blue-200">{flipCount === 1 ? 'Lanzando Moneda...' : 'Lanzando Monedas...'}</p>
+              <p className="text-blue-200">{flips.length === 1 ? 'Lanzando Moneda...' : 'Lanzando Monedas...'}</p>
             </div>
           )}
 
