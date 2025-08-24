@@ -16,7 +16,7 @@ type FlipMode = 'until-lose' | 'set-amount' | 'until-win' | null;
 
 const CoinFlipApp: React.FC = () => {
   const [flips, setFlips] = useState<Flip[]>([]);
-  const [flipCount, setFlipCount] = useState<number>(10);
+  const [flipCount, setFlipCount] = useState<number>(1);
   const [currentMode, setCurrentMode] = useState<FlipMode>(null);
   const [isFlipping, setIsFlipping] = useState<boolean>(false);
 
@@ -106,7 +106,7 @@ const CoinFlipApp: React.FC = () => {
       case 'until-lose':
         return currentMode === 'until-lose' ? 'Lanzando hasta perder...' : 'Hasta Que Pierda';
       case 'set-amount':
-        return currentMode === 'set-amount' ? `Lanzando hasta ${flipCount} tiradas...` : `Lanzar ${flipCount} Monedas`;
+        return currentMode === 'set-amount' ? `Lanzando hasta ${flipCount} tiradas...` : (flipCount === 1 ? `Lanzar Moneda` : `Lanzar ${flipCount} Monedas`);
       case 'until-win':
         return currentMode === 'until-win' ? 'Lanzando hasta ganar...' : 'Hasta Que Gane';
       default:
@@ -191,20 +191,25 @@ const CoinFlipApp: React.FC = () => {
         {/* Stats */}
         {flips.length > 0 && (
           <div className="bg-black/20 backdrop-blur-sm rounded-xl p-4 mb-6">
-            <h3 className="text-lg font-semibold mb-2 text-center">Resultado</h3>
-            <div className="grid grid-cols-3 gap-4 text-center">
+            <h3 className="text-lg font-semibold mb-2 text-center">{flips.length > 1 ? 'Resultados' : 'Resultado'}</h3>
+            <div className={`grid gap-4 text-center ${flips.length > 1 ? 'grid-cols-3' : 'grid-cols-2'}`}>
               <div>
                 <div className="text-2xl font-bold text-green-400">{stats.wins}</div>
-                <div className="text-sm text-gray-300">Ganadas</div>
+                <div className="text-sm text-gray-300">{flips.length <= 1 ? 'Ganada' : 'Ganadas'}</div>
               </div>
               <div>
                 <div className="text-2xl font-bold text-red-400">{stats.losses}</div>
-                <div className="text-sm text-gray-300">Perdidas</div>
+                <div className="text-sm text-gray-300">{flips.length <= 1 ? 'Perdida' : 'Perdidas'}</div>
               </div>
-              <div>
-                <div className="text-2xl font-bold text-blue-400">{stats.total}</div>
-                <div className="text-sm text-gray-300">Total</div>
-              </div>
+              {
+                (flips.length > 1 && (
+                  <div>
+                    <div className="text-2xl font-bold text-blue-400">{stats.total}</div>
+                    <div className="text-sm text-gray-300">Total</div>
+                  </div>
+                ))
+              }
+              
             </div>
           </div>
         )}
@@ -216,7 +221,7 @@ const CoinFlipApp: React.FC = () => {
           {isFlipping && (
             <div className="text-center py-8">
               <div className="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-white mb-4"></div>
-              <p className="text-blue-200">Lanzando moneda...</p>
+              <p className="text-blue-200">{flipCount === 1 ? 'Lanzando Moneda...' : 'Lanzando Monedas...'}</p>
             </div>
           )}
 
@@ -234,18 +239,16 @@ const CoinFlipApp: React.FC = () => {
                 style={{
                   animationDelay: `${index * 100}ms`,
                   animation: index < 3 ? 'fadeInUp 0.5s ease-out forwards' : 'none'
-                }}
-              >
-
-                  <span className="text-2xl mb-1">
-                    {getFlipEmoji(flip.result)}
-                  </span>
-                  <div className="text-xs text-gray-400">
+                }}>
+                <span className="text-2xl mb-1">
+                  {getFlipEmoji(flip.result)}
+                </span>
+                <div className="text-xs text-gray-400">
                   #{flips.length - index}
                 </div>
-
               </div>
-            ))}
+            ))
+            }
           </div>
         </div>
       </div>
