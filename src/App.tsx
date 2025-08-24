@@ -120,12 +120,12 @@ const CoinFlipApp: React.FC = () => {
 
   const getFlipStyling = (result: 'heads' | 'tails'): string => {
     return result === 'heads'
-      ? 'bg-green-500/20 border-l-4 border-green-500'
-      : 'bg-red-500/20 border-l-4 border-red-500';
+      ? 'bg-green-500/20 border-green-500'
+      : 'bg-red-500/20 border-red-500';
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-900 via-purple-900 to-indigo-900 text-white p-4">
+    <div className="min-h-screen bg-gradient-to-br from-blue-700 via-violet-900 to-red-700 text-white p-4">
       <div className="max-w-md mx-auto">
         {/* Header */}
         <div className="text-center mb-8">
@@ -190,7 +190,7 @@ const CoinFlipApp: React.FC = () => {
 
         {/* Stats */}
         {flips.length > 0 && (
-          <div className="bg-black/20 backdrop-blur-sm rounded-xl p-4 mb-6">
+          <div className="bg-black/20 backdrop-|blur-sm rounded-xl p-4 mb-6">
             <h3 className="text-lg font-semibold mb-2 text-center">{flips.length > 1 ? 'Resultados' : 'Resultado'}</h3>
             <div className={`grid gap-4 text-center ${flips.length > 1 ? 'grid-cols-3' : 'grid-cols-2'}`}>
               <div>
