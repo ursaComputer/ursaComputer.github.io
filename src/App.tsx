@@ -62,7 +62,7 @@ const CoinFlipApp: React.FC = () => {
     setFlips([]);
 
     for (let i = 0; i < flipCount; i++) {
-      await delay(600);
+      await delay(600 / (1 + flipCount * 0.2));
       const result = flipCoin();
       addFlip(result);
     }
@@ -224,7 +224,7 @@ const CoinFlipApp: React.FC = () => {
             </div>
           )}
 
-          <div className="grid grid-cols-6 gap-3 max-h-96 overflow-y-auto">
+          <div className="grid grid-cols-5 gap-2 max-h-96 overflow-y-auto">
             {flips.map((flip, index) => (
               <div
                 key={flip.id}
