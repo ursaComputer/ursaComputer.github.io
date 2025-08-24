@@ -49,7 +49,6 @@ const CoinFlipApp: React.FC = () => {
       if (result === 'heads') {
         consecutive++;
       } else {
-        // Lost on tails
         break;
       }
     }
@@ -105,18 +104,18 @@ const CoinFlipApp: React.FC = () => {
   const getButtonText = (mode: FlipMode): string => {
     switch (mode) {
       case 'until-lose':
-        return currentMode === 'until-lose' ? '🎯 Flipping Until Loss...' : 'Until I Lose ❌';
+        return currentMode === 'until-lose' ? 'Lanzando hasta perder...' : 'Hasta Que Pierda';
       case 'set-amount':
-        return currentMode === 'set-amount' ? '🎯 Flipping Set Amount...' : `Flip ${flipCount} Times`;
+        return currentMode === 'set-amount' ? `Lanzando hasta ${flipCount} tiradas...` : `Lanzar ${flipCount} Monedas`;
       case 'until-win':
-        return currentMode === 'until-win' ? '🎯 Flipping Until Win...' : 'Until I Win 🏆';
+        return currentMode === 'until-win' ? 'Lanzando hasta ganar...' : 'Hasta Que Gane';
       default:
         return '';
     }
   };
 
   const getFlipDisplayText = (result: 'heads' | 'tails'): string => {
-    return result === 'heads' ? 'Win' : 'Lose';
+    return result === 'heads' ? 'Gané' : 'Perdí';
   };
 
   const getFlipEmoji = (result: 'heads' | 'tails'): string => {
@@ -134,7 +133,7 @@ const CoinFlipApp: React.FC = () => {
       <div className="max-w-md mx-auto">
         {/* Header */}
         <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold mb-2">Coin Flipper</h1>
+          <h1 className="text-3xl font-bold mb-2">Coinflipper</h1>
         </div>
 
         {/* Three Buttons */}
@@ -151,7 +150,7 @@ const CoinFlipApp: React.FC = () => {
           {/* Set Amount Button with Controls */}
           <div className="bg-green-600 hover:bg-green-700 rounded-xl p-4 shadow-lg">
             <div className="flex items-center justify-between mb-3">
-              <span className="font-semibold text-lg">🎲 Set Amount</span>
+              <span className="font-semibold text-lg">Número de monedas</span>
               <div className="flex items-center space-x-3">
                 <button
                   onClick={() => adjustFlipCount(-1)}
@@ -196,19 +195,19 @@ const CoinFlipApp: React.FC = () => {
         {/* Stats */}
         {flips.length > 0 && (
           <div className="bg-black/20 backdrop-blur-sm rounded-xl p-4 mb-6">
-            <h3 className="text-lg font-semibold mb-2 text-center">📊 Results</h3>
+            <h3 className="text-lg font-semibold mb-2 text-center">Resultado</h3>
             <div className="grid grid-cols-3 gap-4 text-center">
               <div>
                 <div className="text-2xl font-bold text-green-400">{stats.wins}</div>
-                <div className="text-sm text-gray-300">Wins</div>
+                <div className="text-sm text-gray-300">Ganadas</div>
+              </div>
+              <div>
+                <div className="text-2xl font-bold text-red-400">{stats.losses}</div>
+                <div className="text-sm text-gray-300">Perdidas</div>
               </div>
               <div>
                 <div className="text-2xl font-bold text-blue-400">{stats.total}</div>
                 <div className="text-sm text-gray-300">Total</div>
-              </div>
-              <div>
-                <div className="text-2xl font-bold text-red-400">{stats.losses}</div>
-                <div className="text-sm text-gray-300">Losses</div>
               </div>
             </div>
           </div>
@@ -216,18 +215,18 @@ const CoinFlipApp: React.FC = () => {
 
         {/* Flip Results List */}
         <div className="bg-black/20 backdrop-blur-sm rounded-xl p-4">
-          <h3 className="text-lg font-semibold mb-4 text-center">📝 Flip History</h3>
+          <h3 className="text-lg font-semibold mb-4 text-center">Historial de Tiradas</h3>
           
           {isFlipping && (
             <div className="text-center py-8">
               <div className="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-white mb-4"></div>
-              <p className="text-blue-200">Flipping coin...</p>
+              <p className="text-blue-200">Lanzando moneda...</p>
             </div>
           )}
 
           {flips.length === 0 && !isFlipping && (
             <div className="text-center py-8 text-gray-400">
-              <p>No flips yet. Choose a mode to start!</p>
+              <p>No he lanzado nada...</p>
             </div>
           )}
 
