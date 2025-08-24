@@ -130,6 +130,7 @@ const CoinFlipApp: React.FC = () => {
         {/* Header */}
         <div className="text-center mb-8">
           <h1 className="text-3xl font-bold mb-2">Coinflipper</h1>
+          <span className='text-xs font-light'>Heads: ✅ / Tails: ❌</span>
         </div>
 
         {/* Three Buttons */}
