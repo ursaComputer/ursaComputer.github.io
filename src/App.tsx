@@ -218,13 +218,6 @@ const CoinFlipApp: React.FC = () => {
         <div className="bg-black/20 backdrop-blur-sm rounded-xl p-4">
           <h3 className="text-lg font-semibold mb-4 text-center">Historial de Tiradas</h3>
 
-          {isFlipping && (
-            <div className="text-center py-8">
-              <div className="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-white mb-4"></div>
-              <p className="text-blue-200">{flips.length === 1 ? 'Lanzando Moneda...' : 'Lanzando Monedas...'}</p>
-            </div>
-          )}
-
           {flips.length === 0 && !isFlipping && (
             <div className="text-center py-8 text-gray-400">
               <p>No he lanzado nada...</p>
