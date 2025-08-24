@@ -114,10 +114,6 @@ const CoinFlipApp: React.FC = () => {
     }
   };
 
-  const getFlipDisplayText = (result: 'heads' | 'tails'): string => {
-    return result === 'heads' ? 'Gané' : 'Perdí';
-  };
-
   const getFlipEmoji = (result: 'heads' | 'tails'): string => {
     return result === 'heads' ? '✅' : '❌';
   };
