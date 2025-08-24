@@ -32,20 +32,20 @@ const CoinFlipApp: React.FC = () => {
     return result;
   };
 
-  const delay = (ms: number): Promise<void> => 
+  const delay = (ms: number): Promise<void> =>
     new Promise(resolve => setTimeout(resolve, ms));
 
   const startUntilLose = async (): Promise<void> => {
     setCurrentMode('until-lose');
     setIsFlipping(true);
     setFlips([]);
-    
+
     let consecutive = 0;
     while (true) {
       await delay(800);
       const result = flipCoin();
       addFlip(result);
-      
+
       if (result === 'heads') {
         consecutive++;
       } else {
@@ -60,7 +60,7 @@ const CoinFlipApp: React.FC = () => {
     setCurrentMode('set-amount');
     setIsFlipping(true);
     setFlips([]);
-    
+
     for (let i = 0; i < flipCount; i++) {
       await delay(600);
       const result = flipCoin();
@@ -74,12 +74,12 @@ const CoinFlipApp: React.FC = () => {
     setCurrentMode('until-win');
     setIsFlipping(true);
     setFlips([]);
-    
+
     while (true) {
       await delay(800);
       const result = flipCoin();
       addFlip(result);
-      
+
       if (result === 'heads') {
         // Won on heads
         break;
@@ -123,8 +123,8 @@ const CoinFlipApp: React.FC = () => {
   };
 
   const getFlipStyling = (result: 'heads' | 'tails'): string => {
-    return result === 'heads' 
-      ? 'bg-green-500/20 border-l-4 border-green-500' 
+    return result === 'heads'
+      ? 'bg-green-500/20 border-l-4 border-green-500'
       : 'bg-red-500/20 border-l-4 border-red-500';
   };
 
@@ -216,7 +216,7 @@ const CoinFlipApp: React.FC = () => {
         {/* Flip Results List */}
         <div className="bg-black/20 backdrop-blur-sm rounded-xl p-4">
           <h3 className="text-lg font-semibold mb-4 text-center">Historial de Tiradas</h3>
-          
+
           {isFlipping && (
             <div className="text-center py-8">
               <div className="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-white mb-4"></div>
@@ -230,32 +230,24 @@ const CoinFlipApp: React.FC = () => {
             </div>
           )}
 
-          <div className="space-y-2 max-h-96 overflow-y-auto">
+          <div className="grid grid-cols-6 gap-3 max-h-96 overflow-y-auto">
             {flips.map((flip, index) => (
               <div
                 key={flip.id}
-                className={`flex items-center justify-between p-3 rounded-lg transition-all duration-300 ${getFlipStyling(flip.result)}`}
+                className={`flex flex-col items-center justify-center p-3 rounded-lg transition-all duration-300 ${getFlipStyling(flip.result)}`}
                 style={{
                   animationDelay: `${index * 100}ms`,
                   animation: index < 3 ? 'fadeInUp 0.5s ease-out forwards' : 'none'
                 }}
               >
-                <div className="flex items-center space-x-3">
-                  <span className="text-2xl">
+
+                  <span className="text-2xl mb-1">
                     {getFlipEmoji(flip.result)}
                   </span>
-                  <div>
-                    <div className="font-semibold capitalize">
-                      {getFlipDisplayText(flip.result)}
-                    </div>
-                    <div className="text-sm text-gray-400">
-                      {flip.timestamp}
-                    </div>
-                  </div>
-                </div>
-                <div className="text-sm text-gray-400">
+                  <div className="text-xs text-gray-400">
                   #{flips.length - index}
                 </div>
+
               </div>
             ))}
           </div>
